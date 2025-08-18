@@ -85,11 +85,9 @@ const CourseView: React.FC = () => {
   }
 
   const handleLessonClick = (lesson: Lesson) => {
-    if (!lesson.locked && !lesson.completed) {
-      handleLessonComplete(lesson.id)
-      console.log(`Lição completada: ${lesson.title}`)
-    } else if (lesson.completed) {
-      console.log(`Lição já completada: ${lesson.title}`)
+    if (!lesson.locked) {
+      // Navegar para a página da lição para visualizar o conteúdo
+      navigate(`/courses/${course.id}/lessons/${lesson.id}`)
     } else {
       console.log(`Lição bloqueada: ${lesson.title}`)
     }

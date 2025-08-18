@@ -4,7 +4,7 @@ import { Knex } from 'knex';
 export async function up(knex: Knex): Promise<void> {
   // Tabela de cursos
   await knex.schema.createTable('courses', (table) => {
-    table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'));
+    table.uuid('id').primary().defaultTo(knex.raw('(lower(hex(randomblob(4))) || \'-\' || lower(hex(randomblob(2))) || \'-4\' || substr(lower(hex(randomblob(2))),2) || \'-\' || substr(\'89ab\', abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || \'-\' || lower(hex(randomblob(6))))'));
     table.string('title').notNullable();
     table.text('description');
     table.string('category').notNullable();

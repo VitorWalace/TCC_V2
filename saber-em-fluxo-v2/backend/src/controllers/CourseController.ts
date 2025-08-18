@@ -10,6 +10,8 @@ export class CourseController {
    */
   static async getCourses(req: Request, res: Response): Promise<void> {
     try {
+      console.log('🔄 CourseController.getCourses - Iniciando busca de cursos');
+      
       const { 
         category, 
         difficulty, 
@@ -19,6 +21,8 @@ export class CourseController {
         limit = '20', 
         offset = '0' 
       } = req.query;
+
+      console.log('📋 Filtros recebidos:', { category, difficulty, instructor_id, is_published, search, limit, offset });
 
       const filters = {
         category: category as string,
@@ -30,7 +34,11 @@ export class CourseController {
         offset: parseInt(offset as string)
       };
 
+      console.log('🔍 Filtros processados:', filters);
+
       const courses = await CourseService.getCourses(filters);
+      
+      console.log(`✅ CourseController.getCourses - ${courses.length} cursos encontrados`);
 
       res.json({
         success: true,
